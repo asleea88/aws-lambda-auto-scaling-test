@@ -1,0 +1,24 @@
+service: "lambda"
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: ap-northeast-2
+  stage: test
+
+package:
+  exclude:
+    - "*/**"
+  include:
+    - "lambda_function.py"
+
+functions:
+  auto-scaling:
+    handler: lambda_function.handler
+    events:
+      - http:
+          method: get
+          path: fire
+          integration: lambda
+
+
